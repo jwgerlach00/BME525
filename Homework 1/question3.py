@@ -32,15 +32,18 @@ if __name__ == '__main__':
 
     # Plot
     plt.plot(X, phi_of_x)
-    # plt.plot(1000*[neg_E_x[0]], np.linspace(-1, 1, 1000))
-    plt.locator_params(axis='x', nbins=20)
     plt.xlabel('x')
     plt.ylabel('phi')
+    plt.locator_params(axis='x', nbins=20)
 
+    # Shade plots
     plt.fill_between(neg_E_x, len(neg_E_x)*[-1.1], [phi(x) for x in neg_E_x])
-    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x], where=[binarize(x) for x in neut_E_x], color='orange')
-    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x], where=[not binarize(x) for x in neut_E_x], color='orange')
+    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x],
+                     where=[binarize(x) for x in neut_E_x], color='orange')
+    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x], 
+                     where=[not binarize(x) for x in neut_E_x], color='orange')
     
+    # Include 0 has having 0 slope
     plt.plot(1000*[0], np.linspace(-1.1, 0, 1000), color='orange')
 
     plt.show()
