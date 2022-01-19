@@ -31,19 +31,21 @@ if __name__ == '__main__':
     neut_E_x = [x for x, p in zip(X, deriv_phi) if p == 0]
 
     # Plot
-    plt.plot(X, phi_of_x)
-    plt.xlabel('x')
-    plt.ylabel('phi')
+    plt.plot(X, phi_of_x, color='black')
+    plt.xlabel('Distance, x')
+    plt.ylabel('Electric Potential, phi')
     plt.locator_params(axis='x', nbins=20)
 
     # Shade plots
-    plt.fill_between(neg_E_x, len(neg_E_x)*[-1.1], [phi(x) for x in neg_E_x])
-    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x],
-                     where=[binarize(x) for x in neut_E_x], color='orange')
-    plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x], 
-                     where=[not binarize(x) for x in neut_E_x], color='orange')
+    fill_1 = plt.fill_between(neg_E_x, len(neg_E_x)*[-1.1], [phi(x) for x in neg_E_x])
+    fill_2 = plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x],
+                              where=[binarize(x) for x in neut_E_x], color='orange')
+    fill_3 = plt.fill_between(neut_E_x, len(neut_E_x)*[-1.1], [phi(x) for x in neut_E_x], 
+                              where=[not binarize(x) for x in neut_E_x], color='orange')
     
     # Include 0 has having 0 slope
     plt.plot(1000*[0], np.linspace(-1.1, 0, 1000), color='orange')
+    plt.legend(handles=[fill_1, fill_2], labels=['Negative E field', 'Neutral E field'])
+    plt.title('Electric Potential wrt Distance')
 
     plt.show()
